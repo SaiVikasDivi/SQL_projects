@@ -1,0 +1,21 @@
+﻿CREATE TABLE Sheet1(**************************************CAPSTONE_PROJECT_SQL_4_***************************************************************************** VARCHAR(10),Column_2 VARCHAR(10),Column_3 VARCHAR(10),Column_4 VARCHAR(10),Column_5 VARCHAR(10),Column_6 VARCHAR(10),Column_7 VARCHAR(10));
+INSERT INTO Sheet1 (**************************************CAPSTONE_PROJECT_SQL_4_*****************************************************************************,Column_2,Column_3,Column_4,Column_5,Column_6,Column_7) VALUES 
+('select count(*) from (select Title','year','CASE WHEN Revenue_Millions>= 300 then "Blockbuster" WHEN Revenue_Millions between 200 and 299.99 THEN "Superhit" WHEN Revenue_Millions between 100 and 199.99 THEN "Hit" ELSE "Normal" END as rate ','','','',''),
+(' from imdb_movies where year=2014 having rate="Superhit")a','','','','','',''),
+(' ','','','','','',''),
+(' select sum(Revenue_Millions) from (select Title','year','Revenue_Millions','CASE WHEN Revenue_Millions>= 300 then "Blockbuster" WHEN Revenue_Millions between 200 and 299.99 THEN "Superhit" WHEN Revenue_Millions between 100 and 199.99 THEN "Hit" ELSE "Normal" END as rate ','','',''),
+(' from imdb_movies where year=2015 having rate="Blockbuster")a','','','','','',''),
+(' ','','','','','',''),
+(' select count(*) from (select Title','Rating','IF(Rating>= 8','Must Watch','IF(Rating between 6 and 7.9','Can Watch','Avoid)) AS myrating from imdb_movies having myrating="must Watch")a'),
+(' ','','','','','',''),
+(' select sum(Revenue_Millions) from imdb_movies where Genre='Drama' and Rating < 7 and year=2016','','','','','',''),
+(' ','','','','','',''),
+('select Title','Revenue_Millions*100/(select sum(Revenue_Millions) from imdb_movies where Genre='action' and year='2012') as rev from imdb_movies where Title='The Avengers'','','','','',''),
+('select sum(Revenue_Millions)*100/(select sum(Revenue_Millions) from imdb_movies where year =2016)as revenue from imdb_movies where Genre='Comedy' and year='2016'','','','','','',''),
+('select max(total) from (select genre','sum(Revenue_Millions) total from imdb_movies where year in (2014','2015','2016) GROUP by genre )a','','',''),
+('select Director','(rat/cat) rate from (select Director','sum(Rating) as rat','count(Rating) as cat from imdb_movies GROUP by Director)avgrat order by rate desc','','',''),
+('select count(*) from imdb_movies where Revenue_Millions > (select max(Revenue_Millions) from imdb_movies where Genre='Adventure') ','','','','','',''),
+('select count(*) from imdb_movies where Rating > (select max(Rating) from imdb_movies where year=2015)','','','','','',''),
+('select min(Revenue_Millions) from imdb_movies where Rating > (select max(Rating) from imdb_movies where year=2015) and Revenue_Millions > (select max(Revenue_Millions) from imdb_movies where Genre='Comedy')','','','','','',''),
+('select Title','a.year','revperyear','(Revenue_Millions*100/revperyear) total from imdb_movies a join (select year','sum(Revenue_Millions) as revperyear from imdb_movies GROUP by year)b on a.year=b.year having total > 10','',''),
+('select count(*) from (select Title','a.genre','revpergenre','(Revenue_Millions*100/revpergenre) total from imdb_movies a join (select Genre','sum(Revenue_Millions) as revpergenre from imdb_movies GROUP by Genre)b on a.Genre=b.Genre having total > 5)a','','');
